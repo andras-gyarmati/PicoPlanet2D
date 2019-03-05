@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BodyOnPlanet : MonoBehaviour
 {
     public Planet planet;
     private Transform body;
 
-    void Start()
+    private void Start()
     {
         body = transform;
     }
 
-    void Update()
+    private void Update()
     {
         planet.Attract(body);
     }

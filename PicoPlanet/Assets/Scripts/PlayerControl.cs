@@ -9,6 +9,7 @@ public class PlayerControl : MonoBehaviour
     public LayerMask whatIsGround;
 
     private Vector2 direction;
+    private Vector2 jumpDir;
     private Rigidbody2D rb;
     private bool facingRight;
     private bool isGrounded;
@@ -17,26 +18,35 @@ public class PlayerControl : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         facingRight = true;
+        direction = new Vector2();
+        jumpDir = new Vector2(0, 1);
     }
 
     private void Update()
     {
-        direction = new Vector2(Input.GetAxis("Horizontal"), 0);
-    }
-
-    private void FixedUpdate()
-    {
+        direction.Set(0, 0);
+        direction.Set(Input.GetAxis("Horizontal"), 0);
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
         direction = transform.TransformDirection(direction);
-        rb.MovePosition(rb.position + direction * speed * Time.deltaTime);
+        Debug.Log("direction: " + direction);
+        if (direction.x != 0 || direction.y != 0)
+        {
+            rb.velocity = direction * speed * Time.deltaTime;
+        }
         if ((!facingRight && direction.x > 0) || (facingRight && direction.x < 0))
         {
             Flip();
         }
         if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump")))
         {
-            rb.AddForce(transform.up * jumpForce);
+            jumpDir = transform.TransformDirection(jumpDir);
+            rb.velocity = jumpDir * jumpForce * Time.deltaTime;
         }
+    }
+
+    private void FixedUpdate()
+    {
+
     }
 
     private void Flip()
