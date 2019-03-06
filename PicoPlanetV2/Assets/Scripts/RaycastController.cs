@@ -8,13 +8,18 @@ public class RaycastController : MonoBehaviour
 
     public const float skinWidth = .015f;
     private const float dstBetweenRays = .25f;
-    protected int horizontalRayCount;
-    protected int verticalRayCount;
+    [HideInInspector]
+    public int horizontalRayCount;
+    [HideInInspector]
+    public int verticalRayCount;
 
-    protected float horizontalRaySpacing;
-    protected float verticalRaySpacing;
+    [HideInInspector]
+    public float horizontalRaySpacing;
+    [HideInInspector]
+    public float verticalRaySpacing;
 
-    protected new BoxCollider2D collider;
+    [HideInInspector]
+    public new BoxCollider2D collider;
     public RaycastOrigins raycastOrigins;
 
     public virtual void Awake()
