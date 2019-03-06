@@ -58,15 +58,11 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    private void FixedUpdate()
-    {
-        //gravity = pivot.position;
-    }
-     
+    
     public void SetDirectionalInput(Vector2 input)
     {
         directionalInput = input;
+        directionalInput = transform.TransformDirection(directionalInput);
     }
 
     public void OnJumpInputDown()
@@ -154,7 +150,7 @@ public class Player : MonoBehaviour
     {
         float targetVelocityX = directionalInput.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-        //velocity.y += gravity * Time.deltaTime;
+        velocity.y += gravity * Time.deltaTime;
 
         var vect = (pivot.position - transform.position).normalized;
 

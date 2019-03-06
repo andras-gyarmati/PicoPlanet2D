@@ -34,8 +34,7 @@ public class RaycastController : MonoBehaviour
 
     public void UpdateRaycastOrigins()
     {
-        Bounds bounds = collider.bounds;
-        bounds.Expand(skinWidth * -2);
+        // TODO apply skinwidth
 
         var pos = collider.transform.position;
         var size = collider.size;
@@ -48,17 +47,15 @@ public class RaycastController : MonoBehaviour
 
     public void CalculateRaySpacing()
     {
-        Bounds bounds = collider.bounds;
-        bounds.Expand(skinWidth * -2);
 
-        float boundsWidth = bounds.size.x;
-        float boundsHeight = bounds.size.y;
+        float boundsWidth = collider.size.x;
+        float boundsHeight = collider.size.y;
 
         horizontalRayCount = Mathf.RoundToInt(boundsHeight / dstBetweenRays);
         verticalRayCount = Mathf.RoundToInt(boundsWidth / dstBetweenRays);
 
-        horizontalRaySpacing = bounds.size.y / (horizontalRayCount - 1);
-        verticalRaySpacing = bounds.size.x / (verticalRayCount - 1);
+        horizontalRaySpacing = collider.size.y / (horizontalRayCount - 1);
+        verticalRaySpacing = collider.size.x / (verticalRayCount - 1);
     }
 
     public struct RaycastOrigins
