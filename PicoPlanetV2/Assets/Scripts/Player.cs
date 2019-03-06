@@ -48,17 +48,10 @@ public class Player : MonoBehaviour
 
         if (controller.collisions.above || controller.collisions.below)
         {
-            if (false && controller.collisions.slidingDownMaxSlope)
-            {
-                velocity.y += controller.collisions.slopeNormal.y * -gravity * Time.deltaTime;
-            }
-            else
-            {
-                velocity.y = 0;
-            }
+            velocity.y = 0;
         }
     }
-    
+
     public void SetDirectionalInput(Vector2 input)
     {
         directionalInput = input;
@@ -87,18 +80,7 @@ public class Player : MonoBehaviour
         }
         if (controller.collisions.below)
         {
-            if (controller.collisions.slidingDownMaxSlope)
-            {
-                if (directionalInput.x != -Mathf.Sign(controller.collisions.slopeNormal.x))
-                { // not jumping against max slope
-                    velocity.y = maxJumpVelocity * controller.collisions.slopeNormal.y;
-                    velocity.x = maxJumpVelocity * controller.collisions.slopeNormal.x;
-                }
-            }
-            else
-            {
-                velocity.y = maxJumpVelocity;
-            }
+            velocity.y = maxJumpVelocity;
         }
     }
 
