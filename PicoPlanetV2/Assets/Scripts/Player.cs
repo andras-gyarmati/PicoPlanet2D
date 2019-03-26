@@ -43,19 +43,16 @@ public class Player : MonoBehaviour
     {
         CalculateVelocity();
         HandleWallSliding();
-
         controller.Move(velocity * Time.deltaTime, directionalInput);
-
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            velocity.y = 0;
-        }
+        //if (controller.collisions.above || controller.collisions.below)
+        //{
+        //    velocity.y = 0;
+        //}
     }
 
     public void SetDirectionalInput(Vector2 input)
     {
-        directionalInput = input;
-        directionalInput = transform.TransformDirection(directionalInput);
+        directionalInput = transform.TransformDirection(input);
     }
 
     public void OnJumpInputDown()
@@ -140,8 +137,5 @@ public class Player : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.FromToRotation(transform.up, -vect) * transform.rotation;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 50 * Time.deltaTime);
-
-        //velocity.x += controller.collisions.slopeNormal.x * Mathf.Cos(mygravity) * Time.deltaTime;
-        //velocity.y += controller.collisions.slopeNormal.y * Mathf.Sin(mygravity) * Time.deltaTime;
     }
 }
